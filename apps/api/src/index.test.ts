@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import app from './index';
+import app from './index.js';
 
 interface HealthResponse {
   status: string;
@@ -27,5 +27,17 @@ describe('API', () => {
     const data = (await res.json()) as ApiInfoResponse;
     expect(data.name).toBe('NutriTO API');
     expect(data.status).toBe('ok');
+  });
+
+  it('has dishes route', async () => {
+    const res = await app.request('/api/dishes');
+    // Will fail without DB but should not 404
+    expect(res.status).not.toBe(404);
+  });
+
+  it('has places route', async () => {
+    const res = await app.request('/api/places');
+    // Will fail without DB but should not 404
+    expect(res.status).not.toBe(404);
   });
 });

@@ -3,6 +3,9 @@ import { Hono } from 'hono';
 import { cors } from 'hono/cors';
 import { logger } from 'hono/logger';
 
+import dishes from './routes/dishes.js';
+import places from './routes/places.js';
+
 const app = new Hono();
 
 // Middleware
@@ -22,14 +25,20 @@ app.get('/health', (c) => {
   return c.json({ status: 'healthy' });
 });
 
-// Start server
+// API routes
+app.route('/api/dishes', dishes);
+app.route('/api/places', places);
+
+// Start server (only when not imported for testing)
 const port = parseInt(process.env.PORT || '3001', 10);
 
-console.log(`🥗 NutriTO API starting on port ${port}`);
+if (process.env.NODE_ENV !== 'test') {
+  console.log(`🥗 NutriTO API starting on port ${port}`);
 
-serve({
-  fetch: app.fetch,
-  port,
-});
+  serve({
+    fetch: app.fetch,
+    port,
+  });
+}
 
 export default app;
