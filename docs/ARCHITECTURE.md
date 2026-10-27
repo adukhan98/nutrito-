@@ -1,6 +1,6 @@
-# GTA Healthy Food Finder: Architecture (name TBD)
+# NutriTO: Architecture
 
-Status: draft v0.1, 2026-10-26. Helps people in the Greater Toronto Area find healthy food.
+Status: draft v0.2, 2026-10-27. Helps people in the Greater Toronto Area find healthy food.
 
 Three features, built in this order on one shared data core:
 1. **Nutrition per dish**: calories, protein, carbs, fat, fiber, sodium. These are estimates unless the restaurant published the numbers.
@@ -46,25 +46,41 @@ Rule: **anything not `official` is shown as "Estimate"**, with the method one ta
 
 ## 3. Stack
 
-- **Next.js + TypeScript**: one codebase for UI and API routes. A single typed schema (zod) covers ingest, engine and UI.
-- **Postgres + PostGIS**: "places near me" is a `ST_DWithin` query, and the diet filters are plain SQL. SQLite would work for feature 1, but we would migrate at feature 3, so we start on the final store. No search engine in v1.
-- **MapLibre GL** with a tile provider to be chosen (open question).
+**Monorepo structure:**
+```
+apps/
+  mobile/     # Expo app (iOS, Android, Web) with Expo Router
+  api/        # Hono API server on Node.js
+packages/
+  shared/     # Types, theme tokens, nutrition engine
+```
+
+- **Expo + TypeScript (strict)**: cross-platform mobile app with Expo Router for navigation. Runs on iOS, Android, and web from one codebase.
+- **Hono**: lightweight TypeScript API framework for the backend.
+- **Postgres + PostGIS**: "places near me" is a `ST_DWithin` query, and the diet filters are plain SQL. Docker Compose for local dev.
+- **MapLibre GL** with free OSM-compatible tiles (e.g., Protomaps, Stadia) for the map feature.
 - Ingest and estimation are plain TypeScript scripts run from the CLI. No queue or workers in v1.
+
+**Design system** (see `packages/shared/src/theme/`):
+- Palette from Bloom moodboard: peach accent `#E8926F`, cream `#F4EEE0`, mid blue `#3173AD`, navy `#193857`
+- Light and dark themes with WCAG AA contrast compliance
+- Editorial typography: serif display headings, clean sans for UI
+- Calm motion: 150-400ms durations, strong ease-out curves
+
+**Mascot**: Rocco, a reformed Toronto raccoon. Used sparingly in onboarding, empty states, loading, and success moments.
 
 Modules, one job each:
 
 | Module | Job |
 |---|---|
-| `db/` | Schema, migrations, typed queries. |
-| `ingest/fdc` | Import the FDC subset into `fdc_food` and `fdc_nutrient`. |
-| `ingest/osm` | Extract to `place` rows. |
-| `ingest/dinesafe` | Match DineSafe records to `place`. |
-| `curate/` | Validate and load YAML places, dishes and ingredients. |
-| `estimate/` | Pure function from ingredients to totals, range and confidence. No I/O. |
-| `goals/` | Pure function from nutrients per serving to diet-goal tags. |
-| `search/` | Dish queries filtered by goal. |
-| `places/` | Nearby-place queries. |
-| `web/` | Pages and map UI only. |
+| `packages/shared/` | Theme tokens, types, nutrition engine, mascot assets |
+| `apps/api/db/` | Schema, migrations, typed queries. |
+| `apps/api/ingest/fdc` | Import the FDC subset into `fdc_food` and `fdc_nutrient`. |
+| `apps/api/ingest/osm` | Extract to `place` rows. |
+| `apps/api/ingest/dinesafe` | Match DineSafe records to `place`. |
+| `apps/api/curate/` | Validate and load YAML places, dishes and ingredients. |
+| `apps/api/routes/` | API endpoints for dishes, places, search. |
+| `apps/mobile/` | Screens, components, and map UI. |
 
 ## 4. How estimation works
 
@@ -76,19 +92,26 @@ Modules, one job each:
 6. **Official override.** If the restaurant publishes numbers, store those as `official` with the source URL. Keep the computed estimate alongside for comparison, never shown as the headline. Published calories are rounded under O. Reg. 50/16 s.6, so we don't expect an exact match. [reg](https://www.ontario.ca/laws/regulation/160050)
 7. **Version.** Each row stores `engine_version`, so we can recompute when FDC data or rules change.
 
-Diet goals (`goals/`) are named predicates over per-serving nutrients, for example "high protein: protein ≥ X g". The thresholds are a product decision (open question). Dishes with `low` confidence are shown with a warning in results, and the user can hide them.
+**Diet goals** (see `packages/shared/src/nutrition/goals.ts`) are named predicates over per-serving nutrients:
+- High Protein: ≥25g protein
+- Low Carb: ≤20g carbs
+- Low Calorie: ≤400 kcal
+- High Fiber: ≥8g fiber
+- Low Sodium: ≤600mg sodium
 
-## 5. Milestones (each is one draft PR)
+Dishes with `low` confidence are shown with a warning in results, and the user can hide them.
+
+## 5. Milestones (each is one draft PR, merged to main)
 
 | # | PR | Tested by |
 |---|---|---|
-| M0 | Scaffold: Next.js, TS strict, lint, CI, Postgres/PostGIS in Docker, base schema | Migrations apply and roll back in CI. Typecheck passes. |
+| M0 | Scaffold: Expo + Hono monorepo, TS strict, lint, CI, Postgres/PostGIS in Docker, base migration, theme tokens | Migrations apply and roll back. Typecheck passes. Tests pass. |
 | M1 | `ingest/fdc`: import the subset, store attribution | Fixture CSV in, expected rows out. Re-import is idempotent. |
-| M2 | `estimate/`: totals, range, confidence | Hand-calculated golden dishes. Linear scaling of grams. Adding an unmatched ingredient never raises confidence. |
+| M2 | `estimate/`: totals, range, confidence (in shared package) | Hand-calculated golden dishes. Linear scaling of grams. Adding an unmatched ingredient never raises confidence. |
 | M3 | `curate/`: YAML loader and validator, seed about 20 places and 100 dishes | Schema rejects bad rows. A seed dish's computed totals match a hand check. |
-| M4 | **Feature 1.** Dish page with nutrition panel and Estimate label | Component tests. Playwright: label shown unless `official`, and the source link works. |
+| M4 | **Feature 1.** Dish detail screen with nutrition panel and Estimate label | Component tests. Playwright: label shown unless `official`, and the source link works. |
 | M5 | `goals/` and `search/` SQL | Table-driven boundary tests. SQL results equal the in-memory predicate on seed data. |
-| M6 | **Feature 2.** Search page, goal chips, hide-low-confidence toggle | API test against seeded DB. Playwright: filter changes the result list. |
+| M6 | **Feature 2.** Search screen, goal chips, hide-low-confidence toggle | API test against seeded DB. Playwright: filter changes the result list. |
 | M7 | `ingest/osm` (GTA extract via osmium) and `ingest/dinesafe` matching | Small fixture extract. Dedupe test. Attribution strings present. |
 | M8 | **Feature 3.** MapLibre map with `ST_DWithin` nearby query | Query returns the expected ids for a fixture point. Playwright: pins render, attribution visible. |
 | M8b | *Optional.* Google Places enrichment behind a flag (§5b) | Flag off: zero requests to Google. Matching fixtures. Nothing from Google persisted. Playwright with Google mocked. |
@@ -105,27 +128,7 @@ Diet goals (`goals/`) are named predicates over per-serving nutrients, for examp
 - **Fields requested:** `rating`, `userRatingCount`, `regularOpeningHours`, `photos`, `googleMapsUri`, plus `displayName` and `location` for match checking only. No reviews or AI summaries (extra attribution rules, higher SKU).
 - **No user location is sent to Google.** Only the place ID.
 
-**Matching OSM to a Google place ID.** It runs lazily, on the first enrichment request for a place. We never batch it, because bulk fetching is barred (ToS §3.2.3(a)).
-1. Text Search (New) with field mask `places.id` only, using the OSM name and address, restricted to a small area around the OSM point (parameter to confirm in the docs).
-2. Place Details for the single candidate, requesting the enrichment fields plus `displayName` and `location`. The name and distance are compared to OSM in memory. The thresholds are tunable.
-3. Pass: store the ID, render the panel. Fail or more than one candidate: store `none`, show nothing. We don't guess.
-4. IDs older than 12 months are refreshed with an ID-only Place Details call, which Google recommends and bills as an IDs Only SKU. `NOT_FOUND` means rematch. [place IDs](https://developers.google.com/maps/documentation/places/web-service/place-id)
-
-**Pricing** (list prices, USD per 1,000 billable events, first paid tier up to 100,000 per month; page "last updated 2026-10-23 UTC"). Source: [pricing list](https://developers.google.com/maps/billing-and-pricing/pricing).
-
-| SKU | Used for | Price | Free per month |
-|---|---|---|---|
-| Text Search Essentials (IDs Only) | Match step 1 | free | unlimited |
-| Place Details Essentials (IDs Only) | ID refresh | free | unlimited |
-| Place Details Enterprise | Rating, hours | $20.00 | 1,000 |
-| Place Details Photos | Each photo fetched | $7.00 | 1,000 |
-| Dynamic Maps (assumed SKU for a Maps JS map load; confirm) | Google map on the detail page | $7.00 | 10,000 |
-
-A request is billed at the highest SKU among its requested fields ([usage and billing](https://developers.google.com/maps/documentation/places/web-service/usage-and-billing)). The match check adds no extra paid call, since it rides on the Details call. Derived from the table, not quoted: one enriched view with one photo and one map load is about $34 per 1,000 views beyond the free caps. The usage page mentions a $200 monthly credit only until 2025-02-28, so we assume no credit. Cost controls: load Google info only when the user taps "Show Google info", keep a daily request budget counter in the app, and set a Google quota ([how](https://developers.google.com/maps/documentation/places/web-service/usage-and-billing)).
-
-**Feature flag.** `GOOGLE_PLACES_ENABLED` (default `false`) and `GOOGLE_MAPS_API_KEY` must both be set. When off, the enrichment route returns 404, the panel isn't rendered, and the Maps JS script isn't loaded. If the daily budget is hit or Google errors, the panel hides and nothing else changes.
-
-**Scraping Google Maps is out.** That includes page scraping, unofficial endpoints and third-party scrapers. ToS §3.2.3(a) bans exporting, extracting or scraping Google Maps content, and pre-fetching, indexing or storing it. [ToS](https://cloud.google.com/maps-platform/terms)
+**Feature flag.** `GOOGLE_PLACES_ENABLED` (default `false`) and `GOOGLE_MAPS_API_KEY` must both be set. When off, the enrichment route returns 404, the panel isn't rendered, and the Maps JS script isn't loaded.
 
 **Unresolved risk.** ToS §3.2.3(d)(iii) says the Core Services must not be used "in a listings or directory service". A restaurant finder could be read that way. Our argument is that nutrition data gives the app substantial independent value, but that is not a guarantee. Get counsel's view, or Google's, before building M8b.
 
@@ -137,7 +140,7 @@ A request is billed at the highest SKU among its requested fields ([usage and bi
 - No photo-based or AI-guessed dishes shown as facts.
 - No user accounts, reviews or ratings.
 - No Google Places data in the core. Optional live enrichment only (§5b).
-- No mobile app, and no coverage outside the GTA.
+- No mobile-only features (uses Expo for cross-platform including web).
 - No full-GTA menu coverage. v1 is curated, with a small seed.
 
 ## 7. Top risks
@@ -157,5 +160,4 @@ A request is billed at the highest SKU among its requested fields ([usage and bi
 - Is the CNF licence compatible with our use?
 - Which route for menu data: restaurant submissions, partnerships, or manual only?
 - Is M8b allowed for a restaurant finder, given the directory-service clause?
-- Is Dynamic Maps the SKU billed for the Maps JS map load?
-- Name.
+- Name: NutriTO is the working title.

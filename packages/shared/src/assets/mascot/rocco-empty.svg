@@ -1,0 +1,64 @@
+<svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Rocco: Empty state - "Even Rocco couldn't find a bite here" -->
+  <!-- Shrugging, empty bowl, apologetic expression -->
+  
+  <!-- Body -->
+  <ellipse cx="100" cy="145" rx="45" ry="35" fill="#F4EEE0" stroke="#193857" stroke-width="3"/>
+  
+  <!-- Tail (drooping slightly) -->
+  <path d="M55 145 Q30 150 25 165 Q22 175 30 180" fill="none" stroke="#193857" stroke-width="8" stroke-linecap="round"/>
+  <path d="M28 168 Q22 165 24 158" fill="none" stroke="#F4EEE0" stroke-width="4" stroke-linecap="round"/>
+  
+  <!-- Arms (shrugging up) -->
+  <path d="M55 135 Q40 120 45 100" fill="none" stroke="#193857" stroke-width="6" stroke-linecap="round"/>
+  <ellipse cx="45" cy="98" rx="8" ry="7" fill="#F4EEE0" stroke="#193857" stroke-width="2"/>
+  
+  <path d="M145 135 Q160 120 155 100" fill="none" stroke="#193857" stroke-width="6" stroke-linecap="round"/>
+  <ellipse cx="155" cy="98" rx="8" ry="7" fill="#F4EEE0" stroke="#193857" stroke-width="2"/>
+  
+  <!-- Empty bowl -->
+  <ellipse cx="100" cy="155" rx="22" ry="9" fill="#3173AD"/>
+  <ellipse cx="100" cy="152" rx="19" ry="7" fill="#F4EEE0"/>
+  <!-- Just a tiny leaf to show it's empty -->
+  <path d="M98 150 Q96 147 100 149" fill="#4CAF50" opacity="0.5"/>
+  
+  <!-- Head -->
+  <ellipse cx="100" cy="75" rx="42" ry="38" fill="#F4EEE0" stroke="#193857" stroke-width="3"/>
+  
+  <!-- Ears (slightly down) -->
+  <ellipse cx="62" cy="48" rx="15" ry="16" fill="#F4EEE0" stroke="#193857" stroke-width="3" transform="rotate(-10 62 48)"/>
+  <ellipse cx="62" cy="48" rx="8" ry="9" fill="#E8926F" transform="rotate(-10 62 48)"/>
+  <ellipse cx="138" cy="48" rx="15" ry="16" fill="#F4EEE0" stroke="#193857" stroke-width="3" transform="rotate(10 138 48)"/>
+  <ellipse cx="138" cy="48" rx="8" ry="9" fill="#E8926F" transform="rotate(10 138 48)"/>
+  
+  <!-- Raccoon mask -->
+  <path d="M58 68 Q70 62 82 68 Q90 72 100 72 Q110 72 118 68 Q130 62 142 68 Q145 78 140 85 Q130 90 118 85 Q110 82 100 82 Q90 82 82 85 Q70 90 60 85 Q55 78 58 68" fill="#193857"/>
+  
+  <!-- Eyes (apologetic, slightly upturned) -->
+  <ellipse cx="78" cy="75" rx="8" ry="9" fill="#F4EEE0"/>
+  <ellipse cx="122" cy="75" rx="8" ry="9" fill="#F4EEE0"/>
+  <circle cx="78" cy="76" r="4" fill="#193857"/>
+  <circle cx="122" cy="76" r="4" fill="#193857"/>
+  <circle cx="79" cy="75" r="1.5" fill="#FFFFFF"/>
+  <circle cx="123" cy="75" r="1.5" fill="#FFFFFF"/>
+  
+  <!-- Apologetic eyebrows -->
+  <path d="M70 66 Q78 64 86 68" fill="none" stroke="#193857" stroke-width="2" stroke-linecap="round"/>
+  <path d="M130 66 Q122 64 114 68" fill="none" stroke="#193857" stroke-width="2" stroke-linecap="round"/>
+  
+  <!-- Nose -->
+  <ellipse cx="100" cy="90" rx="6" ry="4" fill="#193857"/>
+  
+  <!-- Cheeks -->
+  <ellipse cx="68" cy="88" rx="8" ry="5" fill="#E8926F" opacity="0.5"/>
+  <ellipse cx="132" cy="88" rx="8" ry="5" fill="#E8926F" opacity="0.5"/>
+  
+  <!-- Apologetic smile -->
+  <path d="M92 96 Q100 98 108 96" fill="none" stroke="#193857" stroke-width="2" stroke-linecap="round"/>
+  <!-- Sweat drop -->
+  <path d="M145 65 Q148 58 145 52 Q142 58 145 65" fill="#3173AD" opacity="0.6"/>
+  
+  <!-- Bandana -->
+  <path d="M58 58 Q100 68 142 58 Q145 52 142 48 Q100 55 58 48 Q55 52 58 58" fill="#E8926F" stroke="#193857" stroke-width="2"/>
+  <path d="M55 53 L45 62 L50 65 L58 55" fill="#E8926F" stroke="#193857" stroke-width="1.5"/>
+</svg>

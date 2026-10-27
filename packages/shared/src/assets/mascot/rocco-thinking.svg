@@ -1,0 +1,61 @@
+<svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Rocco: Thinking pose - searching/loading state -->
+  <!-- One paw on chin, looking up, thinking dots -->
+  
+  <!-- Body -->
+  <ellipse cx="100" cy="145" rx="45" ry="35" fill="#F4EEE0" stroke="#193857" stroke-width="3"/>
+  
+  <!-- Tail (relaxed) -->
+  <path d="M55 140 Q35 135 28 115 Q22 95 35 88" fill="none" stroke="#193857" stroke-width="8" stroke-linecap="round"/>
+  <path d="M35 98 Q27 102 29 110" fill="none" stroke="#F4EEE0" stroke-width="4" stroke-linecap="round"/>
+  <path d="M40 118 Q33 122 35 130" fill="none" stroke="#F4EEE0" stroke-width="4" stroke-linecap="round"/>
+  
+  <!-- Left arm (at side) -->
+  <ellipse cx="60" cy="145" rx="10" ry="8" fill="#F4EEE0" stroke="#193857" stroke-width="2"/>
+  
+  <!-- Right arm (paw on chin) -->
+  <path d="M140 140 Q155 130 150 110 Q145 95 130 95" fill="none" stroke="#193857" stroke-width="6" stroke-linecap="round"/>
+  <ellipse cx="128" cy="94" rx="8" ry="7" fill="#F4EEE0" stroke="#193857" stroke-width="2"/>
+  
+  <!-- Head (tilted slightly) -->
+  <ellipse cx="102" cy="75" rx="42" ry="38" fill="#F4EEE0" stroke="#193857" stroke-width="3" transform="rotate(5 102 75)"/>
+  
+  <!-- Ears -->
+  <ellipse cx="68" cy="42" rx="15" ry="18" fill="#F4EEE0" stroke="#193857" stroke-width="3"/>
+  <ellipse cx="68" cy="42" rx="8" ry="10" fill="#E8926F"/>
+  <ellipse cx="138" cy="48" rx="15" ry="18" fill="#F4EEE0" stroke="#193857" stroke-width="3"/>
+  <ellipse cx="138" cy="48" rx="8" ry="10" fill="#E8926F"/>
+  
+  <!-- Raccoon mask -->
+  <path d="M60 68 Q72 62 84 68 Q92 72 102 72 Q112 72 120 68 Q132 62 144 68 Q147 78 142 85 Q132 90 120 85 Q112 82 102 82 Q92 82 84 85 Q72 90 62 85 Q57 78 60 68" fill="#193857"/>
+  
+  <!-- Eyes (looking up and to side) -->
+  <ellipse cx="80" cy="75" rx="8" ry="9" fill="#F4EEE0"/>
+  <ellipse cx="124" cy="75" rx="8" ry="9" fill="#F4EEE0"/>
+  <circle cx="82" cy="72" r="4" fill="#193857"/>
+  <circle cx="126" cy="72" r="4" fill="#193857"/>
+  <circle cx="83" cy="71" r="1.5" fill="#FFFFFF"/>
+  <circle cx="127" cy="71" r="1.5" fill="#FFFFFF"/>
+  
+  <!-- Raised eyebrow effect on mask -->
+  <path d="M118 65 Q124 62 130 65" fill="none" stroke="#F4EEE0" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
+  
+  <!-- Nose -->
+  <ellipse cx="102" cy="90" rx="6" ry="4" fill="#193857"/>
+  
+  <!-- Cheeks -->
+  <ellipse cx="70" cy="88" rx="8" ry="5" fill="#E8926F" opacity="0.6"/>
+  <ellipse cx="134" cy="88" rx="8" ry="5" fill="#E8926F" opacity="0.6"/>
+  
+  <!-- Thinking mouth (slight hmm) -->
+  <path d="M96 96 Q102 94 108 96" fill="none" stroke="#193857" stroke-width="2" stroke-linecap="round"/>
+  
+  <!-- Bandana -->
+  <path d="M60 58 Q102 68 144 58 Q147 52 144 48 Q102 55 60 48 Q57 52 60 58" fill="#E8926F" stroke="#193857" stroke-width="2"/>
+  <path d="M57 53 L47 62 L52 65 L60 55" fill="#E8926F" stroke="#193857" stroke-width="1.5"/>
+  
+  <!-- Thinking dots (animated in component) -->
+  <circle cx="165" cy="55" r="5" fill="#3173AD" opacity="0.4"/>
+  <circle cx="175" cy="45" r="6" fill="#3173AD" opacity="0.6"/>
+  <circle cx="188" cy="32" r="8" fill="#3173AD" opacity="0.8"/>
+</svg>
