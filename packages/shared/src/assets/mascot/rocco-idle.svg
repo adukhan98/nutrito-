@@ -1,0 +1,59 @@
+<svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Rocco: Idle pose - friendly Toronto raccoon with healthy bowl -->
+  <!-- Palette: Navy #193857, Cream #F4EEE0, Peach #E8926F, Mid Blue #3173AD -->
+  
+  <!-- Body -->
+  <ellipse cx="100" cy="145" rx="45" ry="35" fill="#F4EEE0" stroke="#193857" stroke-width="3"/>
+  
+  <!-- Tail (striped) -->
+  <path d="M55 140 Q30 130 25 110 Q20 90 35 85" fill="none" stroke="#193857" stroke-width="8" stroke-linecap="round"/>
+  <path d="M35 95 Q25 100 28 108" fill="none" stroke="#F4EEE0" stroke-width="4" stroke-linecap="round"/>
+  <path d="M40 115 Q32 118 33 125" fill="none" stroke="#F4EEE0" stroke-width="4" stroke-linecap="round"/>
+  
+  <!-- Arms holding bowl -->
+  <ellipse cx="70" cy="140" rx="12" ry="8" fill="#F4EEE0" stroke="#193857" stroke-width="2"/>
+  <ellipse cx="130" cy="140" rx="12" ry="8" fill="#F4EEE0" stroke="#193857" stroke-width="2"/>
+  
+  <!-- Bowl -->
+  <ellipse cx="100" cy="148" rx="28" ry="12" fill="#3173AD"/>
+  <ellipse cx="100" cy="145" rx="25" ry="10" fill="#F4EEE0"/>
+  <!-- Leafy greens in bowl -->
+  <path d="M90 142 Q85 135 92 138 Q88 130 95 136 Q92 128 100 135" fill="#4CAF50" stroke="none"/>
+  <path d="M105 140 Q110 133 103 136 Q108 128 102 134 Q106 126 98 133" fill="#66BB6A" stroke="none"/>
+  <circle cx="95" cy="140" r="4" fill="#E8926F"/>
+  <circle cx="105" cy="141" r="3" fill="#FF7043"/>
+  
+  <!-- Head -->
+  <ellipse cx="100" cy="75" rx="42" ry="38" fill="#F4EEE0" stroke="#193857" stroke-width="3"/>
+  
+  <!-- Ears -->
+  <ellipse cx="65" cy="45" rx="15" ry="18" fill="#F4EEE0" stroke="#193857" stroke-width="3"/>
+  <ellipse cx="65" cy="45" rx="8" ry="10" fill="#E8926F"/>
+  <ellipse cx="135" cy="45" rx="15" ry="18" fill="#F4EEE0" stroke="#193857" stroke-width="3"/>
+  <ellipse cx="135" cy="45" rx="8" ry="10" fill="#E8926F"/>
+  
+  <!-- Raccoon mask -->
+  <path d="M58 68 Q70 62 82 68 Q90 72 100 72 Q110 72 118 68 Q130 62 142 68 Q145 78 140 85 Q130 90 118 85 Q110 82 100 82 Q90 82 82 85 Q70 90 60 85 Q55 78 58 68" fill="#193857"/>
+  
+  <!-- Eyes (in mask) -->
+  <ellipse cx="78" cy="75" rx="8" ry="9" fill="#F4EEE0"/>
+  <ellipse cx="122" cy="75" rx="8" ry="9" fill="#F4EEE0"/>
+  <circle cx="80" cy="75" r="4" fill="#193857"/>
+  <circle cx="124" cy="75" r="4" fill="#193857"/>
+  <circle cx="81" cy="74" r="1.5" fill="#FFFFFF"/>
+  <circle cx="125" cy="74" r="1.5" fill="#FFFFFF"/>
+  
+  <!-- Nose -->
+  <ellipse cx="100" cy="90" rx="6" ry="4" fill="#193857"/>
+  
+  <!-- Cheeks (peach) -->
+  <ellipse cx="68" cy="88" rx="8" ry="5" fill="#E8926F" opacity="0.6"/>
+  <ellipse cx="132" cy="88" rx="8" ry="5" fill="#E8926F" opacity="0.6"/>
+  
+  <!-- Mouth (subtle smile) -->
+  <path d="M94 96 Q100 100 106 96" fill="none" stroke="#193857" stroke-width="2" stroke-linecap="round"/>
+  
+  <!-- Bandana (peach) -->
+  <path d="M58 58 Q100 68 142 58 Q145 52 142 48 Q100 55 58 48 Q55 52 58 58" fill="#E8926F" stroke="#193857" stroke-width="2"/>
+  <path d="M55 53 L45 62 L50 65 L58 55" fill="#E8926F" stroke="#193857" stroke-width="1.5"/>
+</svg>

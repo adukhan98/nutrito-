@@ -1,0 +1,23 @@
+{
+  "name": "nutrito",
+  "version": "0.1.0",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev:mobile": "npm run dev -w @nutrito/mobile",
+    "dev:api": "npm run dev -w @nutrito/api",
+    "build:mobile": "npm run build -w @nutrito/mobile",
+    "build:api": "npm run build -w @nutrito/api",
+    "lint": "npm run lint -ws --if-present",
+    "typecheck": "npm run typecheck -ws --if-present",
+    "test": "npm run test -ws --if-present",
+    "db:migrate": "npm run db:migrate -w @nutrito/api",
+    "db:rollback": "npm run db:rollback -w @nutrito/api"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.0"
+  }
+}
